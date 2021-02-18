@@ -12,13 +12,22 @@ const EightBall = ({ answers }) => {
     const [ color, setColor ] = useState('black');
     const [ cursor, setCursor] = useState('pointer')
     const [clicked, setClicked] = useState(false)
+    const [redCount, setRedCount] = useState(0)
+    const [yellowCount, setYellowCount] = useState(0)
+    const [greenCount, setGeenCount] = useState(0)
 	const clickHandler = () => {
-		const { msg, color } = randChoice(answers);
+        const { msg, color } = randChoice(answers);
+       
 		if(!clicked) {
             setColor(color);
             setMsg(msg);
             setClicked(true);
             setCursor('not-allowed')
+            if(color === 'red'){
+                setRedCount(redCount + 1)
+            } else if(color==='goldenrod'){
+                setYellowCount(yellowCount + 1)
+            } else setGeenCount(greenCount + 1)
         }
         
     };
@@ -36,7 +45,12 @@ const EightBall = ({ answers }) => {
                     <span className="EightBall-msg">{msg}</span>
                 </div>
             </div>
-            <button className="EightBall-button" onClick={reset}>Start Again</button>
+            <button className="EightBall-button" onClick={reset}>Ask Another</button>
+            <div className="EightBall-counters">
+                <div className="EightBall-Count" style={{color: 'red'}}>{redCount}</div>
+                <div className="EightBall-Count" style={{color: 'goldenrod'}}>{yellowCount}</div>
+                <div className="EightBall-Count" style={{color: 'green'}}>{greenCount}</div>
+            </div>
             
         </>
 	);
